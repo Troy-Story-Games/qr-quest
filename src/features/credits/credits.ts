@@ -36,7 +36,7 @@ export const CREDITS: Credit[] = [
     what: 'Fredoka font',
     author: 'Milena Brandão',
     license: 'SIL Open Font License 1.1',
-    url: 'https://github.com/hafontia-zz/Fredoka-One',
+    url: 'https://fonts.google.com/specimen/Fredoka',
   },
   {
     what: 'Emoji pictures (Twemoji)',
