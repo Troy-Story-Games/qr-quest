@@ -1,0 +1,127 @@
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: 860px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.codePanel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.codePanel svg {
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  border-radius: 12px;
+}
+
+.scan {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--ink-soft);
+}
+
+.ok {
+  background: var(--good);
+}
+
+.bad {
+  background: var(--bad);
+}
+
+.side {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.side h3 {
+  margin-top: 8px;
+  font-size: 1.2rem;
+}
+
+.options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 84px;
+  min-height: var(--tap);
+  padding: 8px;
+  border: 3px solid #d9cffc;
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--ink);
+  font-weight: 600;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.option:disabled,
+.sticker:disabled {
+  cursor: not-allowed;
+  background: #eeeaf6;
+}
+
+.active {
+  border-color: var(--primary);
+  background: var(--surface-2);
+  box-shadow: 0 4px 0 var(--primary-dark);
+}
+
+.swatch {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 3px solid;
+}
+
+.locked {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--ink-soft);
+  color: #fff;
+  font-size: 0.85rem;
+}
+
+.stickers {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+  gap: 8px;
+}
+
+.sticker {
+  display: grid;
+  place-items: center;
+  height: 60px;
+  border: 3px solid #d9cffc;
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  cursor: pointer;
+  touch-action: manipulation;
+}

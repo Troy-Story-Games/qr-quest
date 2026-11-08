@@ -1,0 +1,97 @@
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: 860px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.codePanel {
+  position: relative;
+}
+
+.codePanel svg {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 14px;
+  padding: 10px;
+  border-radius: var(--radius-sm);
+  border: 3px solid var(--ink);
+  font-family: var(--font-title);
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+.good {
+  background: var(--good);
+}
+
+.bad {
+  background: var(--bad);
+}
+
+.side {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.meter {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 600;
+}
+
+.track {
+  flex: 1;
+  height: 22px;
+  border: 3px solid var(--ink);
+  border-radius: 999px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.fill {
+  height: 100%;
+  background: repeating-linear-gradient(45deg, #f59e0b 0 10px, #fbbf24 10px 20px);
+}
+
+.label {
+  margin: 16px 0 8px;
+  font-weight: 600;
+}
+
+.records {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-top: 12px;
+  text-align: center;
+}
+
+.records div {
+  display: flex;
+  flex-direction: column;
+  padding: 6px;
+  border-radius: 10px;
+  background: var(--surface-2);
+}
+
+.records .current {
+  background: #fff4cc;
+  outline: 2px solid var(--gold);
+}

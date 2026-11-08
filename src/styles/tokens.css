@@ -1,0 +1,37 @@
+:root {
+  --font-title: 'Fredoka', system-ui, sans-serif;
+  --font-body: 'Fredoka', system-ui, sans-serif;
+
+  --bg: #fff7e6;
+  --bg-pattern: #ffeccc;
+  --surface: #ffffff;
+  --surface-2: #f6f0ff;
+  --ink: #2b2147;
+  --ink-soft: #6b6390;
+  --primary: #6c4cf1;
+  --primary-dark: #4a2fc4;
+  --accent: #ff5a8a;
+  --good: #22c55e;
+  --good-dark: #15803d;
+  --bad: #ef4444;
+  --warn: #ffb400;
+  --gold: #ffc533;
+
+  /* One colour per QR region, used in every explanation so kids can match them up. */
+  --region-finder: #ff4d6d;
+  --region-separator: #ffd1da;
+  --region-timing: #ffb400;
+  --region-alignment: #ff8c42;
+  --region-format: #14b8a6;
+  --region-version: #3a86ff;
+  --region-darkModule: #2b2147;
+  --region-data: #6c4cf1;
+  --region-ecc: #c026d3;
+  --region-remainder: #9ca3af;
+
+  --radius: 22px;
+  --radius-sm: 14px;
+  --shadow: 0 6px 0 rgb(43 33 71 / 0.18);
+  --shadow-lg: 0 10px 30px rgb(43 33 71 / 0.18);
+  --tap: 56px;
+}

@@ -1,0 +1,166 @@
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: 860px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.cameraPanel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.viewport {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: #1d1b2f;
+  border: 4px solid var(--ink);
+}
+
+.video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.placeholder {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  opacity: 0.6;
+}
+
+.frame {
+  position: absolute;
+  inset: 14%;
+  border: 6px dashed rgb(255 255 255 / 0.8);
+  border-radius: 24px;
+}
+
+.scanLine {
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--accent);
+  box-shadow: 0 0 18px 4px var(--accent);
+  animation: sweep 2s ease-in-out infinite alternate;
+}
+
+@keyframes sweep {
+  from {
+    top: 15%;
+  }
+  to {
+    top: 85%;
+  }
+}
+
+.fileButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: var(--tap);
+  padding: 8px 18px;
+  border: 3px dashed var(--primary);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--primary);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.fileButton input {
+  display: none;
+}
+
+.error {
+  color: var(--bad);
+  font-weight: 600;
+}
+
+.side {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.result h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.message {
+  padding: 14px;
+  border-radius: var(--radius-sm);
+  background: #fff;
+  border: 2px solid var(--ink);
+  font-size: 1.3rem;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.details {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px 14px;
+  font-size: 1.2rem;
+}
+
+.details dt {
+  font-weight: 700;
+}
+
+.details dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.clueNumber {
+  font-family: var(--font-title);
+  font-size: 1.4rem;
+  color: var(--good-dark);
+}
+
+.huntMeter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.huntMeter span {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid #cbd5e1;
+}
+
+.huntMeter .huntFound {
+  border-color: var(--good);
+  background: #dcfce7;
+}
+
+.resultActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}

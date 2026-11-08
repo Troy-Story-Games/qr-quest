@@ -1,0 +1,186 @@
+.questGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 18px;
+  margin-top: 20px;
+}
+
+.questCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 20px 14px;
+  border: 4px solid var(--ink);
+  border-radius: 24px;
+  background: var(--surface);
+  box-shadow: 0 7px 0 var(--ink);
+  cursor: pointer;
+  text-align: center;
+  touch-action: manipulation;
+}
+
+.questCard strong {
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: 1.3rem;
+  color: var(--primary);
+}
+
+.questLocked {
+  cursor: not-allowed;
+  filter: grayscale(0.9);
+  opacity: 0.7;
+}
+
+.lock {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--ink-soft);
+  color: #fff;
+  font-weight: 600;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: 860px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.puzzle {
+  overflow: hidden;
+}
+
+.side {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.rounds {
+  display: flex;
+  gap: 8px;
+}
+
+.rounds span {
+  flex: 1;
+  height: 16px;
+  border-radius: 999px;
+  background: #e5e0f5;
+  border: 2px solid var(--ink);
+}
+
+.rounds .roundDone {
+  background: var(--good);
+}
+
+.rounds .roundNow {
+  background: var(--gold);
+}
+
+.mistakes {
+  color: var(--ink-soft);
+  font-weight: 600;
+}
+
+.board {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.board svg[role='img'] {
+  width: 100%;
+  max-width: 460px;
+  height: auto;
+  border-radius: 12px;
+}
+
+.choices {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.pairItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+
+.pairItem svg {
+  width: 100%;
+  height: auto;
+}
+
+.quote {
+  font-size: 1.2rem;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.tray {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  min-height: 100px;
+}
+
+.piece {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 96px;
+  min-height: 96px;
+  padding: 8px;
+  border: 3px solid var(--ink);
+  border-radius: var(--radius-sm);
+  background: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.pieceSelected {
+  background: #fff4cc;
+  outline: 4px solid var(--gold);
+  transform: translateY(-4px);
+}
+
+.finish {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  text-align: center;
+}
+
+.finishActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}

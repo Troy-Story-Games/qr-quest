@@ -1,0 +1,78 @@
+.editor {
+  margin: 16px 0 24px;
+}
+
+.list {
+  list-style: none;
+  margin: 0 0 16px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.number {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--good);
+  color: #fff;
+  font-family: var(--font-title);
+  font-size: 1.3rem;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.progress {
+  margin-top: 12px;
+  font-weight: 600;
+}
+
+.sheet {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 14px;
+  background: #fff;
+  border: 3px dashed var(--ink-soft);
+  border-radius: var(--radius);
+  break-inside: avoid;
+}
+
+.card svg {
+  width: 100%;
+  height: auto;
+}
+
+.card strong {
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: 1.3rem;
+}
+
+@media print {
+  .sheet {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
