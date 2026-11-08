@@ -9,6 +9,7 @@ import { Page } from '@/components/Page';
 import { Panel } from '@/components/Panel';
 import { QrView } from '@/components/qr/QrView';
 import { decodeMatrix, ECC_INFO, encode, type EccLevel } from '@/core/qr';
+import { holdCelebrationsFor } from '@/game/celebrations';
 import { useProgress } from '@/game/progressStore';
 import { playSound } from '@/services/audio/sfx';
 import styles from './ScratchScreen.module.css';
@@ -68,6 +69,7 @@ export function ScratchScreen() {
     const damaged = build.modules.map((row, yy) => row.map((d, xx) => d && !next.has(yy * build.size + xx)));
     if (decodeMatrix(damaged) === null) {
       setBroken(true);
+      holdCelebrationsFor(1800);
       playSound('error');
       const score = Math.round((scratched.size / total) * 100);
       if (score > (best[ecc] ?? 0)) setBest((b) => ({ ...b, [ecc]: score }));

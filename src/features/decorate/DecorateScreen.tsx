@@ -9,6 +9,7 @@ import { Panel } from '@/components/Panel';
 import { downloadPng, scansOk } from '@/components/qr/qrExport';
 import { QrView } from '@/components/qr/QrView';
 import { encode } from '@/core/qr';
+import { holdCelebrationsFor } from '@/game/celebrations';
 import { useLevel, useProgress } from '@/game/progressStore';
 import { COLOR_THEMES, DOT_SHAPES, STICKERS, type DotShape } from '@/game/unlocks';
 import { playSound } from '@/services/audio/sfx';
@@ -60,6 +61,7 @@ export function DecorateScreen() {
     void downloadPng(svgRef.current, 'my-fancy-qr');
     if (!rewarded.has(designKey)) {
       rewarded.add(designKey);
+      holdCelebrationsFor(1500);
       bumpStat('decorations');
       addXp(15, 'Decorated a code!');
     }

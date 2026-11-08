@@ -6,6 +6,7 @@ import { Mascot, type MascotPose } from '@/components/Mascot';
 import { Page } from '@/components/Page';
 import { Panel } from '@/components/Panel';
 import { Stars } from '@/components/Stars';
+import { holdCelebrationsFor } from '@/game/celebrations';
 import { useLevel, useProgress } from '@/game/progressStore';
 import { QUESTS, starsForMistakes } from '@/game/quests';
 import { playSound } from '@/services/audio/sfx';
@@ -55,6 +56,8 @@ export function QuestScreen({ questId, daily }: { questId: string; daily: boolea
         advancing.current = false;
         if (round + 1 >= puzzle.rounds) {
           const earned = starsForMistakes(mistakesRef.current);
+          // Let the stars land before level-ups and badges.
+          holdCelebrationsFor(2600);
           setStars(earned);
           completeQuest(questId, earned, daily);
           playSound('jingleWin');

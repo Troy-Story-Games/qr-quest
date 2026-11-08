@@ -12,6 +12,7 @@ import { downloadPng } from '@/components/qr/qrExport';
 import { QrView } from '@/components/qr/QrView';
 import { useReveal } from '@/components/qr/useReveal';
 import { encode, numDataCodewords, QRCapacityError, type QRBuild } from '@/core/qr';
+import { holdCelebrationsFor } from '@/game/celebrations';
 import { useProgress } from '@/game/progressStore';
 import { playSound } from '@/services/audio/sfx';
 import { burstConfetti } from '@/services/effects/confetti';
@@ -58,6 +59,8 @@ export function MakerScreen() {
     const key = `${payload}|${ecc}`;
     if (!rewarded.has(key)) {
       rewarded.add(key);
+      // Let the code finish popping in before any badge appears.
+      holdCelebrationsFor(1800);
       bumpStat('codesMade');
       if (template === 'wifi') bumpStat('wifiCodes');
       addXp(10, 'Made a code!');

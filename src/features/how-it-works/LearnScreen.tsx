@@ -7,6 +7,7 @@ import { Page } from '@/components/Page';
 import { Panel } from '@/components/Panel';
 import { QrView } from '@/components/qr/QrView';
 import { encode, type ModuleInfo, type QRBuild, type Region } from '@/core/qr';
+import { holdCelebrationsFor } from '@/game/celebrations';
 import { useProgress } from '@/game/progressStore';
 import { playSound } from '@/services/audio/sfx';
 import { burstConfetti } from '@/services/effects/confetti';
@@ -88,6 +89,7 @@ export function LearnScreen() {
     }
     if (step.id === 'done' && !rewardedRef.current) {
       rewardedRef.current = true;
+      holdCelebrationsFor(2500);
       burstConfetti();
       playSound('jingleWin');
       bumpStat('walkthroughs');
@@ -160,6 +162,7 @@ export function LearnScreen() {
                     playSound('pop');
                     setSelected(m);
                     setSelectedChar(null);
+                    holdCelebrationsFor(1500);
                     bumpStat('dotsInspected');
                   }
                 : undefined

@@ -6,6 +6,7 @@ import { Page } from '@/components/Page';
 import { Panel } from '@/components/Panel';
 import { parseClue } from '@/core/payload/payload';
 import { useHunt } from '@/game/huntStore';
+import { holdCelebrationsFor } from '@/game/celebrations';
 import { useProgress } from '@/game/progressStore';
 import { scanImageFile, startScanner, type ScannerHandle } from '@/services/camera/qrScanner';
 import { playSound } from '@/services/audio/sfx';
@@ -32,6 +33,8 @@ export function ScannerScreen() {
     (text: string) => {
       if (pausedRef.current) return;
       pausedRef.current = true;
+      // Show what was scanned before any badge pops up over it.
+      holdCelebrationsFor(1800);
       playSound('success');
       navigator.vibrate?.(80);
       setResult(text);
