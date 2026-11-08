@@ -36,6 +36,15 @@ const ScratchScreen = lazy(() =>
 const TreasureHuntScreen = lazy(() =>
   import('@/features/treasure-hunt/TreasureHuntScreen').then((m) => ({ default: m.TreasureHuntScreen })),
 );
+const BuildLevelsScreen = lazy(() =>
+  import('@/features/quests/build/BuildLevelsScreen').then((m) => ({ default: m.BuildLevelsScreen })),
+);
+const BuildLevelScreen = lazy(() =>
+  import('@/features/quests/build/BuildLevelScreen').then((m) => ({ default: m.BuildLevelScreen })),
+);
+const HandmadeScreen = lazy(() =>
+  import('@/features/handmade/HandmadeScreen').then((m) => ({ default: m.HandmadeScreen })),
+);
 const TrophiesScreen = lazy(() =>
   import('@/features/trophies/TrophiesScreen').then((m) => ({ default: m.TrophiesScreen })),
 );
@@ -58,6 +67,12 @@ function Screen({ route }: { route: Route }) {
       return <QuestsScreen />;
     case 'quest':
       return <QuestScreen key={route.id} questId={route.id} daily={route.daily} />;
+    case 'buildLevels':
+      return <BuildLevelsScreen daily={route.daily} />;
+    case 'buildLevel':
+      return <BuildLevelScreen key={route.level} level={route.level} daily={route.daily} />;
+    case 'handmade':
+      return <HandmadeScreen />;
     case 'trophies':
       return <TrophiesScreen />;
     case 'credits':

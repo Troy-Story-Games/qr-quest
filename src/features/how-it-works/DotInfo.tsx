@@ -1,9 +1,8 @@
 import type { ModuleInfo, QRBuild } from '@/core/qr';
 import { SpeakButton } from '@/components/SpeakButton';
 import { groupForChar, type CharBits } from './bits';
-import { explainColor, REGION_COLORS } from './colors';
+import { explainColor, REGION_COLORS, REGION_INFO } from '@/components/qr/regions';
 import styles from './LearnScreen.module.css';
-import { REGION_INFO } from './steps';
 
 const ordinal = (n: number) =>
   `${n}${['th', 'st', 'nd', 'rd'][n % 100 > 10 && n % 100 < 14 ? 0 : n % 10 < 4 ? n % 10 : 0]}`;

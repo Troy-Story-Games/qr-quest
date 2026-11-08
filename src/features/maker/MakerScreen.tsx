@@ -259,6 +259,19 @@ export function MakerScreen() {
               <Emoji code="1f9ea" /> Scratch test
             </KidButton>
           </div>
+          <div className={`${styles.actions} no-print`}>
+            <KidButton
+              size="lg"
+              variant="gold"
+              disabled={!build}
+              onClick={() => {
+                setText(payload);
+                navigate('handmade');
+              }}
+            >
+              <Emoji code="1f9e9" /> Build it by hand!
+            </KidButton>
+          </div>
         </div>
       </div>
     </Page>

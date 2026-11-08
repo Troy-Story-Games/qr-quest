@@ -11,6 +11,8 @@ export interface Stats {
   /** Best percentage of dots scratched off while the code still scanned. */
   scratchBest: number;
   questsPlayed: number;
+  /** Codes built piece by piece in Make a Code. */
+  handBuilt: number;
 }
 
 export type StatKey = keyof Stats;
@@ -26,4 +28,5 @@ export const EMPTY_STATS: Stats = {
   decorations: 0,
   scratchBest: 0,
   questsPlayed: 0,
+  handBuilt: 0,
 };

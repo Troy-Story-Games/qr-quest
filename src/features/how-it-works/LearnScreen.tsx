@@ -12,7 +12,7 @@ import { useProgress } from '@/game/progressStore';
 import { playSound } from '@/services/audio/sfx';
 import { burstConfetti } from '@/services/effects/confetti';
 import { charGroups } from './bits';
-import { explainColor } from './colors';
+import { explainColor } from '@/components/qr/regions';
 import { DotInfo } from './DotInfo';
 import styles from './LearnScreen.module.css';
 import { LetterStrip } from './LetterStrip';
@@ -108,6 +108,8 @@ export function LearnScreen() {
   const maskApplied = (step.id === 'mask' && showMasked) || step.id === 'done';
   const fill = (x: number, y: number): string | null => {
     const m = build.info[y][x];
+    // The first step shows the finished code; building starts from nothing on Next.
+    if (step.id === 'message') return m.dark ? '#1d1b2f' : null;
     if (!isVisible(m)) return null;
     const dark = maskApplied ? m.dark : m.rawDark;
     if (realColors && step.id === 'done') return dark ? '#1d1b2f' : null;
@@ -152,7 +154,7 @@ export function LearnScreen() {
             modules={build.modules}
             fill={fill}
             background="#ffffff"
-            showGrid={step.id !== 'done'}
+            showGrid={step.id !== 'done' && step.id !== 'message'}
             highlight={highlight}
             onModuleTap={
               canInspect

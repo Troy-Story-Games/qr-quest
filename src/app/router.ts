@@ -15,12 +15,20 @@ export type Route =
   | { name: 'hunt' }
   | { name: 'quests' }
   | { name: 'quest'; id: string; daily: boolean }
+  | { name: 'buildLevels'; daily: boolean }
+  | { name: 'buildLevel'; level: number; daily: boolean }
+  | { name: 'handmade' }
   | { name: 'trophies' }
   | { name: 'credits' };
 
 export function parseRoute(hash: string): Route {
   const [path, query = ''] = hash.replace(/^#\/?/, '').split('?');
-  const [first, second] = path.split('/');
+  const [first, second, third] = path.split('/');
+  const daily = new URLSearchParams(query).has('daily');
+  if (first === 'quests' && second === 'build-a-qr') {
+    return third ? { name: 'buildLevel', level: Number(third) || 1, daily } : { name: 'buildLevels', daily };
+  }
+  if (first === 'handmade') return { name: 'handmade' };
   switch (first) {
     case 'make':
     case 'learn':
@@ -32,7 +40,7 @@ export function parseRoute(hash: string): Route {
     case 'trophies':
     case 'credits':
       if (first === 'quests' && second) {
-        return { name: 'quest', id: second, daily: new URLSearchParams(query).has('daily') };
+        return { name: 'quest', id: second, daily };
       }
       return { name: first };
     default:

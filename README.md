@@ -6,13 +6,13 @@ Runs in any modern browser (installable as an offline app on Android tablets and
 
 ## Features
 
-- **Make a Code**: text, website, WiFi and secret-message templates, with a live preview, PNG download and print
+- **Make a Code**: text, website, WiFi and secret-message templates, with a live preview, PNG download and print, plus **Build it by hand**: put your own code together piece by piece
 - **How It Works**: an animated, narrated build of your code: eyes, rulers, settings, letters to bits, backup dots and the mask. Tap any dot to see its job.
 - **Scratch Lab**: rub out dots and see how much damage each backup level can survive
 - **Decorate**: colours, dot shapes and stickers, with a live check that the design still scans
 - **Scanner**: camera scanning (or pick a photo) that explains what the code contains
 - **Treasure Hunt**: write clues, print the codes, then scan them to track the hunt
-- **Quests**: six puzzle games with stars, a daily challenge, XP, levels, badges and unlockables
+- **Quests**: puzzle games with stars, including a six-level Build-a-QR map, a daily challenge, XP, levels, badges and unlockables
 - Read-aloud for every explanation, sound effects, optional procedural music
 
 ## Development

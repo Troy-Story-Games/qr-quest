@@ -2,7 +2,7 @@ import { motion } from 'motion/react';
 import type { QRBuild } from '@/core/qr';
 import { playSound } from '@/services/audio/sfx';
 import { groupForChar, type CharBits } from './bits';
-import { letterColor } from './colors';
+import { letterColor } from '@/components/qr/regions';
 import styles from './LearnScreen.module.css';
 
 const MAX_SHOWN = 24;

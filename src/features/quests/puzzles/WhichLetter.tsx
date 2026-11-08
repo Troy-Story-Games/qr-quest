@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { KidButton } from '@/components/KidButton';
 import { QrView } from '@/components/qr/QrView';
 import { encode } from '@/core/qr';
-import { explainColor, letterColor } from '@/features/how-it-works/colors';
+import { explainColor, letterColor } from '@/components/qr/regions';
 import styles from '../QuestScreen.module.css';
 import { pick, type PuzzleProps } from './types';
 

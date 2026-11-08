@@ -13,7 +13,7 @@ export const QUESTS: QuestInfo[] = [
   {
     id: 'find-eyes',
     title: 'Find the Eyes',
-    blurb: 'Tap the three big corner eyes.',
+    blurb: 'Find every eye, big and little.',
     emoji: '1f440',
     level: 1,
   },
@@ -27,7 +27,7 @@ export const QUESTS: QuestInfo[] = [
   {
     id: 'spot-the-oops',
     title: 'Spot the Oops',
-    blurb: 'One pattern dot is wrong. Find it!',
+    blurb: 'Something is wrong. Find the mistake!',
     emoji: '1f50d',
     level: 2,
   },
@@ -48,7 +48,7 @@ export const QUESTS: QuestInfo[] = [
   {
     id: 'build-a-qr',
     title: 'Build-a-QR',
-    blurb: 'Put the eyes and rulers back where they belong.',
+    blurb: 'Rebuild a code piece by piece. 6 levels!',
     emoji: '1f9e9',
     level: 3,
   },

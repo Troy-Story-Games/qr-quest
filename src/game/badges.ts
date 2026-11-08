@@ -8,6 +8,7 @@ export interface BadgeContext {
   xp: number;
   questStars: Record<string, number>;
   streak: number;
+  buildLevels: Record<number, number>;
 }
 
 export interface Badge {
@@ -105,6 +106,20 @@ export const BADGES: Badge[] = [
     description: 'Get 3 stars on every quest.',
     emoji: '1f3c6',
     earned: (c) => QUESTS.every((q) => (c.questStars[q.id] ?? 0) >= 3),
+  },
+  {
+    id: 'master-builder',
+    name: 'Master Builder',
+    description: 'Finish every Build-a-QR level.',
+    emoji: '1f9e9',
+    earned: (c) => (c.buildLevels[6] ?? 0) > 0,
+  },
+  {
+    id: 'hand-crafted',
+    name: 'Hand Crafted',
+    description: 'Build your own message into a QR code by hand.',
+    emoji: '1f3a8',
+    earned: (c) => c.stats.handBuilt >= 1,
   },
   {
     id: 'streak-3',

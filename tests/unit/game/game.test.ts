@@ -37,7 +37,7 @@ describe('streak', () => {
 });
 
 describe('badges', () => {
-  const ctx = { stats: EMPTY_STATS, xp: 0, questStars: {}, streak: 0 };
+  const ctx = { stats: EMPTY_STATS, xp: 0, questStars: {}, streak: 0, buildLevels: {} };
 
   it('awards nothing to a brand-new player', () => {
     expect(newlyEarnedBadges(ctx, [])).toEqual([]);

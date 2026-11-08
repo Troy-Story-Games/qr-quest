@@ -15,6 +15,8 @@ interface ProgressData {
   badges: string[];
   streak: Streak;
   dailyDoneOn: string | null;
+  /** Stars per Build-a-QR level. */
+  buildLevelStars: Record<number, number>;
 }
 
 interface ProgressActions {
@@ -25,6 +27,8 @@ interface ProgressActions {
   recordBest: (key: StatKey, value: number) => void;
   /** Records a finished quest; only improvements earn more XP. */
   completeQuest: (questId: string, stars: number, isDaily: boolean) => void;
+  /** Records a Build-a-QR level; also counts toward the Build-a-QR quest's stars. */
+  completeBuildLevel: (level: number, stars: number, isDaily: boolean) => void;
   checkIn: () => void;
   importSave: (data: unknown) => boolean;
   reset: () => void;
@@ -39,6 +43,7 @@ const INITIAL: ProgressData = {
   badges: [],
   streak: { count: 0, lastDay: null },
   dailyDoneOn: null,
+  buildLevelStars: {},
 };
 
 export const useProgress = create<ProgressState>()(
@@ -59,7 +64,13 @@ export const useProgress = create<ProgressState>()(
       const awardBadges = () => {
         const s = get();
         const earned = newlyEarnedBadges(
-          { stats: s.stats, xp: s.xp, questStars: s.questStars, streak: s.streak.count },
+          {
+            stats: s.stats,
+            xp: s.xp,
+            questStars: s.questStars,
+            streak: s.streak.count,
+            buildLevels: s.buildLevelStars,
+          },
           s.badges,
         );
         if (earned.length === 0) return;
@@ -96,6 +107,15 @@ export const useProgress = create<ProgressState>()(
             gainXp(DAILY_BONUS_XP, 'Daily challenge!');
           }
         },
+        completeBuildLevel: (level, stars, isDaily) => {
+          set((s) => ({
+            buildLevelStars: {
+              ...s.buildLevelStars,
+              [level]: Math.max(s.buildLevelStars[level] ?? 0, stars),
+            },
+          }));
+          get().completeQuest('build-a-qr', stars, isDaily);
+        },
         checkIn: () => {
           set((s) => ({ streak: visitStreak(s.streak, today()) }));
           awardBadges();
@@ -112,7 +132,8 @@ export const useProgress = create<ProgressState>()(
       name: 'kidqr-progress',
       version: 1,
       storage: persistStorage,
-      partialize: ({ xp, stats, questStars, badges, streak, dailyDoneOn }) => ({
+      partialize: ({ xp, stats, questStars, badges, streak, dailyDoneOn, buildLevelStars }) => ({
+        buildLevelStars,
         xp,
         stats,
         questStars,
@@ -136,8 +157,8 @@ function isProgressData(value: unknown): value is ProgressData {
 
 /** Snapshot suitable for a downloadable save file. */
 export function exportSave(): ProgressData {
-  const { xp, stats, questStars, badges, streak, dailyDoneOn } = useProgress.getState();
-  return { xp, stats, questStars, badges, streak, dailyDoneOn };
+  const { xp, stats, questStars, badges, streak, dailyDoneOn, buildLevelStars } = useProgress.getState();
+  return { xp, stats, questStars, badges, streak, dailyDoneOn, buildLevelStars };
 }
 
 export const useLevel = () => useProgress((s) => levelForXp(s.xp));

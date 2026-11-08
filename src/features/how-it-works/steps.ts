@@ -19,7 +19,7 @@ export function stepsFor(build: QRBuild): Step[] {
     {
       id: 'message',
       title: 'Your message',
-      says: `Every QR code holds a message. Ours says "${build.text.length > 30 ? build.text.slice(0, 30) + '…' : build.text}". Let's build it, dot by dot!`,
+      says: `Every QR code holds a message. Ours says "${build.text.length > 30 ? build.text.slice(0, 30) + '…' : build.text}". Here is the finished code! Press Next and we'll build it from nothing, dot by dot.`,
       pose: 'wide',
       reveals: [],
     },
@@ -91,17 +91,3 @@ export function stepsFor(build: QRBuild): Step[] {
   );
   return steps;
 }
-
-/** Plain-language explanation of each region, shown when a dot is tapped. */
-export const REGION_INFO: Record<Region, { name: string; job: string }> = {
-  finder: { name: 'Big eye', job: 'Helps the scanner find the code and see which way is up.' },
-  separator: { name: 'Eye border', job: 'A light ring that keeps the eye apart from other dots.' },
-  timing: { name: 'Ruler', job: 'Dark, light, dark, light: helps the scanner count the dots.' },
-  alignment: { name: 'Little eye', job: 'Helps when the code is bent or tilted.' },
-  format: { name: 'Settings', job: 'Says which backup level and which mix-up pattern were used.' },
-  version: { name: 'Size settings', job: 'Says how big the code is.' },
-  darkModule: { name: 'Always-dark dot', job: 'This one is always dark. Every QR code has it!' },
-  data: { name: 'Message dot', job: 'Part of your message.' },
-  ecc: { name: 'Backup dot', job: 'Maths copies that can fix a scratched code.' },
-  remainder: { name: 'Leftover', job: 'A spare spot with nothing to say.' },
-};

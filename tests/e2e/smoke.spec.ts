@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
 
 test('home shows every activity', async ({ page }) => {
   await page.goto('./');
@@ -31,21 +31,78 @@ test('walkthrough reaches the end', async ({ page }) => {
   await expect(page.getByText('Ta-da!')).toBeVisible();
 });
 
-test('find-the-eyes quest can be completed', async ({ page }) => {
+/** Taps the centre of module (mx, my) on a QrView with a 2-module quiet zone. */
+async function tapModule(page: Page, label: string, mx: number, my: number) {
+  const code = page.getByRole('img', { name: label });
+  await code.scrollIntoViewIfNeeded();
+  await page.waitForTimeout(300);
+  const box = (await code.boundingBox())!;
+  const total = Number((await code.getAttribute('viewBox'))!.split(' ')[2]);
+  const cell = box.width / total;
+  await page.mouse.click(box.x + (mx + 2.5) * cell, box.y + (my + 2.5) * cell);
+}
+
+async function codeSize(page: Page, label: string) {
+  return Number((await page.getByRole('img', { name: label }).getAttribute('viewBox'))!.split(' ')[2]) - 4;
+}
+
+/** Start with enough XP to have every quest unlocked. */
+async function unlockQuests(page: Page) {
+  await page.addInitScript(() => {
+    localStorage.setItem(
+      'kidqr-progress',
+      JSON.stringify({
+        state: {
+          xp: 600,
+          stats: {},
+          questStars: {},
+          badges: ['royal'],
+          streak: { count: 0, lastDay: null },
+          dailyDoneOn: null,
+          buildLevelStars: {},
+        },
+        version: 1,
+      }),
+    );
+  });
+}
+
+test('find-the-eyes round 1 finds the three big eyes', async ({ page }) => {
   await page.goto('./#/quests/find-eyes');
-  const code = page.getByRole('img', { name: 'Find the three eyes' });
-  for (let round = 0; round < 3; round++) {
-    await expect(code).toBeVisible();
-    const box = (await code.boundingBox())!;
-    // The code has a 2-module quiet zone; eyes sit 3.5 modules in from three corners.
-    const size = Number((await code.getAttribute('viewBox'))!.split(' ')[2]) - 4;
-    const cell = box.width / (size + 4);
-    const at = (mx: number, my: number) => page.mouse.click(box.x + (mx + 2) * cell, box.y + (my + 2) * cell);
-    await at(3.5, 3.5);
-    await at(size - 3.5, 3.5);
-    await at(3.5, size - 3.5);
-    // Wait for the next round to slide in before tapping again.
-    await page.waitForTimeout(2600);
+  const label = 'Find the eyes';
+  await expect(page.getByRole('img', { name: label })).toBeVisible();
+  const size = await codeSize(page, label);
+  await tapModule(page, label, 3, 3);
+  await tapModule(page, label, size - 4, 3);
+  await tapModule(page, label, 3, size - 4);
+  // Round 2 is a bigger code with a little eye as well.
+  await expect(page.getByText(/3 big and \d+ little/)).toBeVisible({ timeout: 5000 });
+});
+
+test('walkthrough starts by showing the finished code', async ({ page }) => {
+  await page.goto('./#/learn');
+  const code = page.getByRole('img', { name: 'QR code being built' });
+  await expect(code).toBeVisible();
+  expect(await code.locator('path').count()).toBeGreaterThan(0);
+  await page.getByRole('button', { name: 'Next', exact: true }).click();
+  await expect(page.getByText('Three big eyes')).toBeVisible();
+});
+
+test('build-a-qr level 1 can be completed', async ({ page }) => {
+  await unlockQuests(page);
+  await page.goto('./#/quests/build-a-qr/1');
+  const label = 'QR code being built by hand';
+  await expect(page.getByRole('img', { name: label })).toBeVisible();
+  const size = await codeSize(page, label);
+  for (const [x, y] of [
+    [3, 3],
+    [size - 4, 3],
+    [3, size - 4],
+  ]) {
+    await page.getByRole('button', { name: /^Eye$/ }).first().click();
+    await tapModule(page, label, x, y);
   }
-  await expect(page.getByRole('heading', { name: 'Quest complete!' })).toBeVisible();
+  await page.getByRole('button', { name: /Mix it up/ }).click();
+  await expect(page.getByText('It scans!')).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Level 1 complete!' })).toBeVisible({ timeout: 5000 });
 });
