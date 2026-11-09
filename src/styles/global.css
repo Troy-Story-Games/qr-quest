@@ -82,6 +82,10 @@ img {
   -webkit-user-drag: none;
 }
 
+.print-only {
+  display: none;
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -108,5 +112,8 @@ img {
   .no-print,
   body > canvas {
     display: none !important;
+  }
+  .print-only {
+    display: block;
   }
 }

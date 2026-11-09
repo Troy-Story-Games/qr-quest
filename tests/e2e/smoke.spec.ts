@@ -117,3 +117,26 @@ test('reward toasts never end up on a printout', async ({ page }) => {
   await expect(toast).toBeHidden();
   await expect(page.getByText('Clue 1', { exact: true }).first()).toBeVisible();
 });
+
+test('made and decorated codes appear in My Codes', async ({ page }) => {
+  await page.goto('./#/make');
+  await page.getByRole('textbox').first().fill('Plain code');
+  await page.getByRole('button', { name: /Make it!/ }).click();
+
+  await page.goto('./#/decorate');
+  const makeIt = page.getByRole('button', { name: /Make it!/ });
+  await expect(makeIt).toBeEnabled({ timeout: 10_000 });
+  await makeIt.click({ force: true });
+
+  await page.getByRole('button', { name: 'My codes' }).click();
+  await expect(page.getByRole('heading', { name: /My Codes/ })).toBeVisible();
+  await expect(page.locator('tbody tr')).toHaveCount(2);
+  await expect(page.getByText('Decorated', { exact: true })).toBeVisible();
+
+  // Printing one code shows only that code on paper.
+  await page.evaluate(() => (window.print = () => {}));
+  await page.getByRole('button', { name: /Print/ }).first().click();
+  await page.emulateMedia({ media: 'print' });
+  await expect(page.locator('.print-only')).toBeVisible();
+  await expect(page.locator('table')).toBeHidden();
+});

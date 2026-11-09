@@ -7,9 +7,10 @@ import { Mascot } from '@/components/Mascot';
 import { Page } from '@/components/Page';
 import { Panel } from '@/components/Panel';
 import { downloadPng, scansOk } from '@/components/qr/qrExport';
-import { QrView } from '@/components/qr/QrView';
+import { StyledQr } from '@/components/qr/StyledQr';
 import { encode } from '@/core/qr';
 import { holdCelebrationsFor } from '@/game/celebrations';
+import { useMyCodes } from '@/game/myCodes';
 import { useLevel, useProgress } from '@/game/progressStore';
 import { COLOR_THEMES, DOT_SHAPES, STICKERS, type DotShape } from '@/game/unlocks';
 import { playSound } from '@/services/audio/sfx';
@@ -29,8 +30,9 @@ export function DecorateScreen() {
   const [scanResult, setScanResult] = useState<{ key: string; ok: boolean } | null>(null);
   const svgRef = useRef<SVGSVGElement>(null);
   const { addXp, bumpStat } = useProgress();
+  const addCode = useMyCodes((s) => s.add);
+  const [madeKey, setMadeKey] = useState<string | null>(null);
 
-  const theme = COLOR_THEMES.find((t) => t.id === themeId)!;
   // Stickers cover dots, so always use the strongest backup level when decorating.
   const build = useMemo(() => {
     try {
@@ -54,11 +56,9 @@ export function DecorateScreen() {
     return () => clearTimeout(timer);
   }, [designKey, build.text]);
 
-  const isEye = (x: number, y: number) => build.info[y][x].region === 'finder';
-
-  const finish = () => {
-    if (!svgRef.current) return;
-    void downloadPng(svgRef.current, 'my-fancy-qr');
+  const makeIt = () => {
+    addCode({ text: build.text, ecc: build.ecc, style: { themeId, shape, sticker } });
+    setMadeKey(designKey);
     if (!rewarded.has(designKey)) {
       rewarded.add(designKey);
       holdCelebrationsFor(1500);
@@ -70,28 +70,25 @@ export function DecorateScreen() {
   };
 
   const says =
-    scan === 'tricky'
-      ? "My robot eyes can't read this one, but phone cameras are better at it than me! Try scanning it with a phone."
-      : sticker
-        ? 'The sticker covers some dots, but the backup dots fill them back in. That is why we use TONS of backup!'
-        : 'Pick colours, dot shapes and a sticker. I will check that it still scans!';
+    madeKey === designKey
+      ? 'Made it! Your fancy code is saved in My Codes. Tap the box at the top to see all your codes.'
+      : scan === 'tricky'
+        ? "My robot eyes can't read this one, but phone cameras are better at it than me! Try scanning it with a phone."
+        : sticker
+          ? 'The sticker covers some dots, but the backup dots fill them back in. That is why we use TONS of backup!'
+          : 'Pick colours, dot shapes and a sticker. I will check that it still scans!';
 
   return (
     <Page title="Decorate" emoji="1f3a8" wide>
       <div className={styles.layout}>
         <Panel tone="pink" className={styles.codePanel}>
-          <QrView
+          <StyledQr
             ref={svgRef}
-            modules={build.modules}
-            quietZone={4}
-            background={theme.light}
-            shape={shape}
-            sticker={sticker}
-            eyeColor={shape === 'square' ? undefined : theme.eye}
-            fill={(x, y, dark) => (dark ? (isEye(x, y) ? theme.eye : theme.dark) : null)}
+            build={build}
+            style={{ themeId, shape, sticker }}
             label={`Decorated QR code for: ${text}`}
           />
-          <div className={`${styles.scan} ${styles[scan]}`}>
+          <div className={`${styles.scan} ${styles[scan]} no-print`}>
             {scan === 'checking' && 'Checking…'}
             {scan === 'ok' && (
               <>
@@ -104,12 +101,23 @@ export function DecorateScreen() {
               </>
             )}
           </div>
-          <KidButton size="lg" variant="good" onClick={finish} disabled={scan === 'checking'} sound={null}>
-            <Emoji code="2b50" /> Save my code
-          </KidButton>
+          <div className={`${styles.actions} no-print`}>
+            <KidButton size="lg" variant="good" onClick={makeIt} disabled={scan === 'checking'} sound={null}>
+              <Emoji code="2b50" /> Make it!
+            </KidButton>
+            <KidButton
+              variant="secondary"
+              onClick={() => svgRef.current && downloadPng(svgRef.current, 'my-fancy-qr')}
+            >
+              Save picture
+            </KidButton>
+            <KidButton variant="secondary" onClick={() => window.print()}>
+              <Emoji code="1f5a8" /> Print
+            </KidButton>
+          </div>
         </Panel>
 
-        <div className={styles.side}>
+        <div className={`${styles.side} no-print`}>
           <Mascot pose="show" says={says} size={96} />
 
           <Panel>

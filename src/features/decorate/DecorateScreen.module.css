@@ -126,3 +126,21 @@
   cursor: pointer;
   touch-action: manipulation;
 }
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+@media print {
+  .layout {
+    display: block;
+  }
+  .codePanel {
+    border: none;
+    box-shadow: none;
+    background: none;
+  }
+}

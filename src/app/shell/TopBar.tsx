@@ -48,6 +48,15 @@ export function TopBar() {
       <div className={styles.toggles}>
         <KidButton
           size="icon"
+          variant={route.name === 'codes' ? 'primary' : 'secondary'}
+          aria-label="My codes"
+          title="My codes"
+          onClick={() => navigate('codes')}
+        >
+          <Emoji code="1f5c2" size={30} />
+        </KidButton>
+        <KidButton
+          size="icon"
           variant={sfx ? 'primary' : 'secondary'}
           sound="toggle"
           aria-label={sfx ? 'Turn sounds off' : 'Turn sounds on'}

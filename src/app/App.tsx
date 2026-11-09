@@ -45,6 +45,9 @@ const BuildLevelScreen = lazy(() =>
 const HandmadeScreen = lazy(() =>
   import('@/features/handmade/HandmadeScreen').then((m) => ({ default: m.HandmadeScreen })),
 );
+const MyCodesScreen = lazy(() =>
+  import('@/features/my-codes/MyCodesScreen').then((m) => ({ default: m.MyCodesScreen })),
+);
 const TrophiesScreen = lazy(() =>
   import('@/features/trophies/TrophiesScreen').then((m) => ({ default: m.TrophiesScreen })),
 );
@@ -73,6 +76,8 @@ function Screen({ route }: { route: Route }) {
       return <BuildLevelScreen key={route.level} level={route.level} daily={route.daily} />;
     case 'handmade':
       return <HandmadeScreen />;
+    case 'codes':
+      return <MyCodesScreen />;
     case 'trophies':
       return <TrophiesScreen />;
     case 'credits':

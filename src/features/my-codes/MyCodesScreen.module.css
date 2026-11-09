@@ -1,0 +1,155 @@
+.table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: separate;
+  border-spacing: 0 10px;
+}
+
+.table th {
+  padding: 0 12px;
+  text-align: left;
+  color: var(--ink-soft);
+  font-weight: 600;
+}
+
+.table td {
+  padding: 10px 12px;
+  background: var(--surface);
+  border-top: 3px solid var(--ink);
+  border-bottom: 3px solid var(--ink);
+  vertical-align: middle;
+}
+
+.table td:first-child {
+  border-left: 3px solid var(--ink);
+  border-radius: var(--radius) 0 0 var(--radius);
+  width: 116px;
+}
+
+.table td:last-child {
+  border-right: 3px solid var(--ink);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+.thumb {
+  display: block;
+  width: 96px;
+  padding: 0;
+  border: none;
+  border-radius: 10px;
+  background: none;
+  cursor: pointer;
+}
+
+.thumb svg {
+  width: 96px;
+  height: 96px;
+  border-radius: 10px;
+}
+
+.message {
+  font-size: 1.15rem;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.fancy {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 8px;
+  padding: 1px 10px;
+  border-radius: 999px;
+  background: #ffe4ee;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.date {
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.actions button {
+  min-height: 48px;
+  font-size: 1rem;
+}
+
+/* On narrow screens each row becomes a card. */
+@media (max-width: 760px) {
+  .table thead {
+    display: none;
+  }
+
+  .table,
+  .table tbody,
+  .table tr,
+  .table td {
+    display: block;
+    width: auto !important;
+  }
+
+  .table tr {
+    margin-bottom: 14px;
+    border: 3px solid var(--ink);
+    border-radius: var(--radius);
+    background: var(--surface);
+    overflow: hidden;
+  }
+
+  .table td,
+  .table td:first-child,
+  .table td:last-child {
+    border: none;
+    border-radius: 0;
+  }
+
+  .actions {
+    justify-content: flex-start;
+  }
+}
+
+.big {
+  display: block;
+  width: min(360px, 100%);
+  height: auto;
+  margin: 0 auto 12px;
+  border-radius: 12px;
+}
+
+.bigText {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 1.3rem;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.modalActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.printArea {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.printCode {
+  display: block;
+  width: 12cm;
+  height: 12cm;
+  margin: 1cm auto;
+}

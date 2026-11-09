@@ -13,6 +13,7 @@ import { QrView } from '@/components/qr/QrView';
 import { useReveal } from '@/components/qr/useReveal';
 import { encode, numDataCodewords, QRCapacityError, type QRBuild } from '@/core/qr';
 import { holdCelebrationsFor } from '@/game/celebrations';
+import { useMyCodes } from '@/game/myCodes';
 import { useProgress } from '@/game/progressStore';
 import { playSound } from '@/services/audio/sfx';
 import { burstConfetti } from '@/services/effects/confetti';
@@ -29,8 +30,10 @@ export function MakerScreen() {
   const [template, setTemplate] = useState<TemplateId>('text');
   const [fields, setFields] = useState<TemplateFields>({ ...EMPTY_FIELDS, text: savedText });
   const [made, setMade] = useState(0);
+  const [lastMade, setLastMade] = useState<string | null>(null);
   const svgRef = useRef<SVGSVGElement>(null);
   const { addXp, bumpStat } = useProgress();
+  const addCode = useMyCodes((s) => s.add);
 
   const payload = buildPayload(template, fields);
   const result = useMemo((): { build?: QRBuild; error?: string } => {
@@ -50,6 +53,8 @@ export function MakerScreen() {
   const makeIt = () => {
     if (!build) return;
     setText(payload);
+    addCode({ text: payload, ecc });
+    setLastMade(`${payload}|${ecc}`);
     setMade((n) => n + 1);
     playSound('powerup');
     setTimeout(() => {
@@ -167,7 +172,16 @@ export function MakerScreen() {
             </div>
           </Panel>
 
-          <Mascot pose="talk" says={result.error ?? tip} size={96} />
+          <Mascot
+            pose="talk"
+            says={
+              result.error ??
+              (lastMade === `${payload}|${ecc}`
+                ? 'Made it! Your code is saved in My Codes. Tap the box at the top to see all your codes.'
+                : tip)
+            }
+            size={96}
+          />
         </div>
 
         <div className={styles.preview}>

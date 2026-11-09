@@ -18,6 +18,7 @@ export type Route =
   | { name: 'buildLevels'; daily: boolean }
   | { name: 'buildLevel'; level: number; daily: boolean }
   | { name: 'handmade' }
+  | { name: 'codes' }
   | { name: 'trophies' }
   | { name: 'credits' };
 
@@ -29,6 +30,7 @@ export function parseRoute(hash: string): Route {
     return third ? { name: 'buildLevel', level: Number(third) || 1, daily } : { name: 'buildLevels', daily };
   }
   if (first === 'handmade') return { name: 'handmade' };
+  if (first === 'codes') return { name: 'codes' };
   switch (first) {
     case 'make':
     case 'learn':

@@ -10,6 +10,7 @@ Runs in any modern browser (installable as an offline app on Android tablets and
 - **How It Works**: an animated, narrated build of your code: eyes, rulers, settings, letters to bits, backup dots and the mask. Tap any dot to see its job.
 - **Scratch Lab**: rub out dots and see how much damage each backup level can survive
 - **Decorate**: colours, dot shapes and stickers, with a live check that the design still scans
+- **My Codes**: every code you make (plain or decorated), to view, save as a picture or print
 - **Scanner**: camera scanning (or pick a photo) that explains what the code contains
 - **Treasure Hunt**: write clues, print the codes, then scan them to track the hunt
 - **Quests**: puzzle games with stars, including a six-level Build-a-QR map, a daily challenge, XP, levels, badges and unlockables
