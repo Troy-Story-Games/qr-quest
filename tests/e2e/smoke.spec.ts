@@ -106,3 +106,14 @@ test('build-a-qr level 1 can be completed', async ({ page }) => {
   await expect(page.getByText('It scans!')).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Level 1 complete!' })).toBeVisible({ timeout: 5000 });
 });
+
+test('reward toasts never end up on a printout', async ({ page }) => {
+  await page.goto('./#/hunt');
+  await page.evaluate(() => (window.print = () => {}));
+  await page.getByRole('button', { name: /Print the hunt/ }).click();
+  const toast = page.getByText(/\+\d+ XP/).first();
+  await expect(toast).toBeVisible();
+  await page.emulateMedia({ media: 'print' });
+  await expect(toast).toBeHidden();
+  await expect(page.getByText('Clue 1', { exact: true }).first()).toBeVisible();
+});

@@ -30,7 +30,7 @@ export function CelebrationLayer() {
 
   return (
     <>
-      <div className={styles.toasts} aria-live="polite">
+      <div className={`${styles.toasts} no-print`} aria-live="polite">
         <AnimatePresence>
           {toasts
             .slice(-3)

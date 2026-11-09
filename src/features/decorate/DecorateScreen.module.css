@@ -40,8 +40,9 @@
   background: var(--good);
 }
 
-.bad {
-  background: var(--bad);
+.tricky {
+  background: var(--warn);
+  color: #5a3d00;
 }
 
 .side {

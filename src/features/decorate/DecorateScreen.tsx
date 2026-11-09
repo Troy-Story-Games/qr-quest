@@ -16,7 +16,7 @@ import { playSound } from '@/services/audio/sfx';
 import { burstConfetti } from '@/services/effects/confetti';
 import styles from './DecorateScreen.module.css';
 
-type ScanState = 'checking' | 'ok' | 'bad';
+type ScanState = 'checking' | 'ok' | 'tricky';
 
 const rewarded = new Set<string>();
 
@@ -41,7 +41,7 @@ export function DecorateScreen() {
   }, [text]);
 
   const designKey = `${build.text}|${themeId}|${shape}|${sticker}`;
-  const scan: ScanState = scanResult?.key !== designKey ? 'checking' : scanResult.ok ? 'ok' : 'bad';
+  const scan: ScanState = scanResult?.key !== designKey ? 'checking' : scanResult.ok ? 'ok' : 'tricky';
 
   // Really decode the rendered picture, so fancy designs are proven to scan.
   useEffect(() => {
@@ -70,8 +70,8 @@ export function DecorateScreen() {
   };
 
   const says =
-    scan === 'bad'
-      ? 'Hmm, scanners might not read this one. Try a darker colour or a different dot shape!'
+    scan === 'tricky'
+      ? "My robot eyes can't read this one, but phone cameras are better at it than me! Try scanning it with a phone."
       : sticker
         ? 'The sticker covers some dots, but the backup dots fill them back in. That is why we use TONS of backup!'
         : 'Pick colours, dot shapes and a sticker. I will check that it still scans!';
@@ -98,13 +98,13 @@ export function DecorateScreen() {
                 <GameIcon name="checkmark" /> It scans!
               </>
             )}
-            {scan === 'bad' && (
+            {scan === 'tricky' && (
               <>
-                <GameIcon name="cross" /> Too fancy to scan
+                <Emoji code="1f4f7" /> Test it with a phone!
               </>
             )}
           </div>
-          <KidButton size="lg" variant="good" onClick={finish} disabled={scan !== 'ok'} sound={null}>
+          <KidButton size="lg" variant="good" onClick={finish} disabled={scan === 'checking'} sound={null}>
             <Emoji code="2b50" /> Save my code
           </KidButton>
         </Panel>
