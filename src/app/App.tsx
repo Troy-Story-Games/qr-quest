@@ -9,6 +9,9 @@ import { CelebrationLayer } from './shell/CelebrationLayer';
 import { TopBar } from './shell/TopBar';
 
 // Screens load on demand so the home screen appears fast on tablets.
+const AboutScreen = lazy(() =>
+  import('@/features/about/AboutScreen').then((m) => ({ default: m.AboutScreen })),
+);
 const CreditsScreen = lazy(() =>
   import('@/features/credits/CreditsScreen').then((m) => ({ default: m.CreditsScreen })),
 );
@@ -82,6 +85,8 @@ function Screen({ route }: { route: Route }) {
       return <TrophiesScreen />;
     case 'credits':
       return <CreditsScreen />;
+    case 'about':
+      return <AboutScreen />;
     default:
       return <HomeScreen />;
   }

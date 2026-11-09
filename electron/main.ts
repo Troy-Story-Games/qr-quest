@@ -12,7 +12,7 @@ function createWindow(): void {
     minWidth: 400,
     minHeight: 600,
     backgroundColor: '#fff7e6',
-    title: 'Kid QR',
+    title: 'QR Quest',
     icon: join(here, '../build/icon.png'),
     autoHideMenuBar: true,
     webPreferences: {

@@ -20,7 +20,8 @@ export type Route =
   | { name: 'handmade' }
   | { name: 'codes' }
   | { name: 'trophies' }
-  | { name: 'credits' };
+  | { name: 'credits' }
+  | { name: 'about' };
 
 export function parseRoute(hash: string): Route {
   const [path, query = ''] = hash.replace(/^#\/?/, '').split('?');
@@ -41,6 +42,7 @@ export function parseRoute(hash: string): Route {
     case 'quests':
     case 'trophies':
     case 'credits':
+    case 'about':
       if (first === 'quests' && second) {
         return { name: 'quest', id: second, daily };
       }

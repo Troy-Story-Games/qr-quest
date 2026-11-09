@@ -140,3 +140,29 @@ test('made and decorated codes appear in My Codes', async ({ page }) => {
   await expect(page.locator('.print-only')).toBeVisible();
   await expect(page.locator('table')).toBeHidden();
 });
+test('the top bar keeps the music button on every screen size', async ({ page }) => {
+  await page.goto('./');
+  await expect(page.getByRole('button', { name: /Turn music/ })).toBeVisible();
+  await expect(page.getByRole('button', { name: /Turn sounds/ })).toBeVisible();
+});
+
+test('About shows who made it and where the code lives', async ({ page }) => {
+  await page.goto('./');
+  await page.getByRole('button', { name: 'About', exact: true }).click();
+  await expect(page.getByRole('button', { name: 'TroyStoryGames' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'See the code on GitHub' })).toBeVisible();
+  await expect(page.getByText(/Version \d+\.\d+\.\d+/)).toBeVisible();
+});
+
+test('an Install button appears when the browser offers installing', async ({ page }) => {
+  await page.goto('./');
+  await expect(page.getByRole('button', { name: /Install app/ })).toHaveCount(0);
+  await page.evaluate(() => {
+    const offer = Object.assign(new Event('beforeinstallprompt', { cancelable: true }), {
+      prompt: async () => {},
+      userChoice: Promise.resolve({ outcome: 'dismissed' }),
+    });
+    window.dispatchEvent(offer);
+  });
+  await expect(page.getByRole('button', { name: /Install app/ })).toBeVisible();
+});

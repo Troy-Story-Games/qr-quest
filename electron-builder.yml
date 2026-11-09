@@ -1,6 +1,6 @@
-appId: com.seanlaplante.kidqr
-productName: Kid QR
-artifactName: ${productName}-${version}-${os}-${arch}.${ext}
+appId: com.troystorygames.qrquest
+productName: QR Quest
+artifactName: qr-quest-${version}-${os}-${arch}.${ext}
 directories:
   output: release
   buildResources: build
@@ -15,20 +15,22 @@ win:
   target:
     - nsis
     - portable
+portable:
+  artifactName: qr-quest-${version}-windows-portable.${ext}
 nsis:
+  artifactName: qr-quest-${version}-windows-setup.${ext}
   oneClick: false
   allowToChangeInstallationDirectory: true
 mac:
-  target: dmg
+  target:
+    - target: dmg
+      arch: [x64, arm64]
   category: public.app-category.education
   extendInfo:
-    NSCameraUsageDescription: Kid QR uses the camera to scan QR codes.
+    NSCameraUsageDescription: QR Quest uses the camera to scan QR codes.
 linux:
-  target:
-    - AppImage
-    - deb
+  target: AppImage
   category: Education
-  maintainer: Sean LaPlante
 publish:
   provider: github
-  releaseType: release
+  releaseType: draft

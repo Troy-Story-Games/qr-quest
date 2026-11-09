@@ -33,7 +33,7 @@ export function TrophiesScreen() {
     const blob = new Blob([JSON.stringify(exportSave(), null, 2)], { type: 'application/json' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
-    link.download = 'kid-qr-save.json';
+    link.download = 'qr-quest-save.json';
     link.click();
     URL.revokeObjectURL(link.href);
   };
@@ -130,7 +130,7 @@ export function TrophiesScreen() {
             Start over
           </KidButton>
         </div>
-        {importError && <p className={styles.error}>That file isn't a Kid QR save.</p>}
+        {importError && <p className={styles.error}>That file isn't a QR Quest save.</p>}
       </Panel>
 
       <GrownUpGate

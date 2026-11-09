@@ -11,7 +11,7 @@ const DOT = '#2b2147';
 const EYE = '#ff4d6d';
 
 function iconSvg({ padding }) {
-  const qr = QRCode.create('Kid QR', { errorCorrectionLevel: 'M', version: 1 });
+  const qr = QRCode.create('QR Quest', { errorCorrectionLevel: 'M', version: 1 });
   const { size, data } = qr.modules;
   const isEye = (x, y) => (x < 7 && y < 7) || (x >= size - 7 && y < 7) || (x < 7 && y >= size - 7);
 

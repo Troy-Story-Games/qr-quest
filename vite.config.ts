@@ -17,8 +17,8 @@ export default defineConfig({
       injectRegister: null,
       includeAssets: ['favicon.svg', 'apple-touch-icon.png'],
       manifest: {
-        name: 'Kid QR',
-        short_name: 'Kid QR',
+        name: 'QR Quest',
+        short_name: 'QR Quest',
         description: 'Make, decorate and scan QR codes, and learn how they work!',
         theme_color: '#6c4cf1',
         background_color: '#fff7e6',
